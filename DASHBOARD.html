@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Dashboard</title>
+    <link rel="stylesheet" href="/DASHBOARD/styles.css">
+    <!-- LIBRERÍA D3 -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <!-- LIBRERÍA OBSERVABLE PLOT -->
+    <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+    <!-- TU ARCHIVO JAVASCRIPT -->
+    <script src="/DASHBOARD/script.js"></script>
+</head>
+
+<body>
+   <div class="titulo">
+
+    <!-- LOGO -->
+    <img src="/DASHBOARD/cel2.png"
+         alt="Logo del dashboard"
+         class="logo">
+
+    <img src="/DASHBOARD/logonoche1.png"
+         alt="Logo del dashboard"
+         class="logo">
+
+    <!-- TÍTULO -->
+    <div class="texto-titulo">
+        <h1>Uso del celular en la noche</h1>
+        <p>Resumen general de los datos</p>
+    </div>
+</div>
+    <div class="panel">
+        <section class="contenedor-graficas">
+            <div class="grafica">
+                <h2>Distribución de horas de sueño</h2>
+                <div id="grafica-histograma"></div>
+            </div>
+            <div class="grafica">
+                <h2>Horas de sueño y fatiga</h2>
+                <div id="grafica-cajas"></div>
+            </div>
+        </section>
+    </div>
+    
+    <div class="contenedor">
+        <div id="indicador1">
+            <h3>Promedio de horas de sueño de las personas</h3>
+            <p> <span style="font-weight: bold; color: #8a2323;">6.26 hr</span></p>
+        </div>
+        <div id="indicador2">
+            <h3>Promedio de los minutos que pasan en el celular en la noche</h3>
+            <p><span style="font-weight: bold; color:  #8a2323;">59.25 min</span></p>
+        </div>
+        <div id="indicador3">
+            <h3>Promedio del uso del filtro azul activo en el celular</h3>
+            <p><span style="font-weight: bold; color: hsl(0, 4%, 22%);">46.78%</span></p>
+        </div>
+        <div id="indicador4">
+            <h3>Promedio de nivel de fatiga de las personas</h3> 
+            <p><span style="font-weight: bold; color:  #8a2323;">3.8</span></p>
+        </div>
+    </div>
+</body>
+
+</html>

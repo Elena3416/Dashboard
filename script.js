@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // 1. CONFIGURACIÓN
     // ==========================================
 
-    const archivoCSV = "./bedtime_screentime_sleep_bueno.csv";
+    const archivoCSV = "bedtime_screentime_sleep_bueno.csv";
 
     const ROJO = "#8a2323";
     const GRIS = "#999999";

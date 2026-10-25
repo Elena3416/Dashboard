@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -11,18 +11,18 @@
     <!-- LIBRERÍA OBSERVABLE PLOT -->
     <script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
     <!-- TU ARCHIVO JAVASCRIPT -->
-    <script src="/DASHBOARD/script.js"></script>
+    <script src="/DASHBOARD/script.js" defer></script>
 </head>
 
 <body>
    <div class="titulo">
 
     <!-- LOGO -->
-    <img src="/DASHBOARD/cel2.png"
+    <img src="/DASHBOARD/canva-icono-de-teléfono-blanco-sobre-fondo-negro-MAGfoebFYQ8.png"
          alt="Logo del dashboard"
          class="logo">
 
-    <img src="/DASHBOARD/logonoche1.png"
+    <img src="/DASHBOARD/Luna blanca.png"
          alt="Logo del dashboard"
          class="logo">
 
@@ -48,19 +48,19 @@
     <div class="contenedor">
         <div id="indicador1">
             <h3>Promedio de horas de sueño de las personas</h3>
-            <p> <span style="font-weight: bold; color: #8a2323;">6.26 hr</span></p>
+            <p> <span style="font-weight: bold; color: #8a2323;"><span id="valor-sueno">Cargando...</span></span></p>
         </div>
         <div id="indicador2">
             <h3>Promedio de los minutos que pasan en el celular en la noche</h3>
-            <p><span style="font-weight: bold; color:  #8a2323;">59.25 min</span></p>
+            <p><span style="font-weight: bold; color:  #8a2323;"><span id="valor-minutos">Cargando...</span></span></p>
         </div>
         <div id="indicador3">
             <h3>Promedio del uso del filtro azul activo en el celular</h3>
-            <p><span style="font-weight: bold; color: hsl(0, 4%, 22%);">46.78%</span></p>
+            <p><span style="font-weight: bold; color: hsl(0, 4%, 22%);"><span id="valor-filtro">Cargando...</span></span></p>
         </div>
         <div id="indicador4">
             <h3>Promedio de nivel de fatiga de las personas</h3> 
-            <p><span style="font-weight: bold; color:  #8a2323;">3.8</span></p>
+            <p><span style="font-weight: bold; color:  #8a2323;"><span id="valor-fatiga">Cargando...</span></span></p>
         </div>
     </div>
 </body>

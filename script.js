@@ -205,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     padding: "12px 15px",
 
-                    width: "420px",
+                    width: "520px",
                     maxWidth: "95%",
 
                     boxSizing: "border-box",
@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     margin: "12px auto",
 
                     fontFamily: "Arial, sans-serif",
-                    fontSize: "14px",
+                    fontSize: "16px",
                     lineHeight: "1.5",
 
                     borderRadius: "4px",
@@ -317,7 +317,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 style: {
                     fontFamily: "Arial, sans-serif",
-                    fontSize: 14
+                    fontSize: 16
                 },
 
                 marks: [
@@ -345,8 +345,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         dy: -10,
 
-                        fill: "#333333",
-                        fontSize: 11
+                        fill: "black",
+                        fontSize: 16
                     }),
 
                     Plot.ruleY([0])
@@ -469,7 +469,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 style: {
                     fontFamily: "Arial, sans-serif",
-                    fontSize: 14
+                    fontSize: 16
                 },
 
                 marks: [
@@ -493,9 +493,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         dy: -15,
 
-                        fill: "#333333",
+                        fill: "#FFFFFF",
 
-                        fontSize: 13,
+                        fontSize: 16,
                         fontWeight: "bold"
                     }),
 
@@ -513,9 +513,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         channels: {
 
-                            "Registros": "cantidad",
-                            "Cuartil 1": "q1",
-                            "Cuartil 3": "q3"
+                            "Registros": "cantidad"
                         }
                     })
                 ]
@@ -838,7 +836,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
                                 <div>
                                     Horas de sueño:
+                                    <strong>
                                     ${barra.inicio} a ${barra.fin}
+                                    </strong>
                                 </div>
 
                                 <div>
@@ -852,13 +852,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                     Porcentaje:
                                     <strong>
                                         ${porcentaje.toFixed(1)}%
-                                    </strong>
-                                </div>
-
-                                <div>
-                                    Grupo relacionado:
-                                    <strong>
-                                        ${obtenerGrupo(barra.centro)}
                                     </strong>
                                 </div>
                             `;
@@ -945,16 +938,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             </div>
 
                             <div>
-                                Cuartil 1:
-                                ${estadistica.q1.toFixed(1)}
-                            </div>
-
-                            <div>
-                                Cuartil 3:
-                                ${estadistica.q3.toFixed(1)}
-                            </div>
-
-                            <div>
                                 Las tarjetas muestran
                                 los promedios de este grupo.
                             </div>
@@ -993,7 +976,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 borderRadius: "5px",
 
-                fontSize: "14px",
+                fontSize: "16px",
 
                 cursor: "pointer"
             });

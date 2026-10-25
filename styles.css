@@ -1,4 +1,37 @@
-.panel{
+/* DASHBOARD STYLESHEET */
+.titulo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px 30px;
+    color: white;
+    background-color: #55541a;
+    border-radius: 12px;
+    box-shadow: 10px 10px 10px 10px rgba(0.08, 0.08, 0.08, 0.08);
+}
+
+/* LOGO */
+.logo {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+}
+
+/* TEXTOS */
+.texto-titulo h1 {
+    font-size: 26px;
+    margin: 0;
+    color: #edf0f3;
+    margin-top: 10px;
+}
+
+.texto-titulo p {
+    font-size: 25px;
+    margin-top: 5px;
+    color: #edf0f3;
+}
+
+.panel {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -19,13 +52,13 @@
     border-radius: 12px;
     padding: 15px;
     min-width: 0;
-    box-shadow: 10px 10px 10px 10px rgba(0.08,0.08,0.08,0.08);
+    box-shadow: 10px 10px 10px 10px rgba(0.08, 0.08, 0.08, 0.08);
 }
 
 /* TÍTULOS */
 .grafica h2 {
-    font-size: 17px;
-    color: #4A7A96;
+    font-size: 20px;
+    color: #55541a;
     margin: 0 0 15px 0;
 }
 
@@ -52,26 +85,6 @@
     margin-top: 20px;
 }
 
-.titulo {
-    color: #fff;
-    font-family: 'Arial', sans-serif;
-    font-size: 1rem;
-    background-color: #4c8baf;
-    border-radius: 5px;
-}
-
-.titulo>h1 {
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-bottom: 0px;
-}
-
-.titulo>p {
-    margin-left: 10px;
-    margin-top: 10px;
-    font-size: 1.5rem;
-    font-family: 'Arial', sans-serif;
-}
 
 .grafico {
     width: 50%;
@@ -87,7 +100,7 @@
 #indicador4 {
     border-radius: 5px;
     color: #1b1b1b;
-}   
+}
 
 h3 {
     margin-left: 10px;
@@ -114,50 +127,20 @@ h3 {
 span {
     font-size: 2rem;
     font-family: 'Arial', sans-serif;
-    margin-left: 50%;   
+    margin-left: 50%;
 }
 
-h3{
+h3 {
     font-size: 1.2rem;
     font-family: 'Arial', sans-serif;
     margin-left: 10px;
 }
 
-h2{
+h2 {
     font-size: 2 rem;
     font-family: 'Arial', sans-serif;
     text-align: center;
 }
-
-
-/* ENCABEZADO CON LOGO */
-.titulo {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 20px 30px;
-    color: white;
-}
-
-/* LOGO */
-.logo {
-    width: 75px;
-    height: 75px;
-    object-fit: contain;
-}
-
-/* TEXTOS */
-.texto-titulo h1 {
-    font-size: 26px;
-    margin: 0;
-}
-
-.texto-titulo p {
-    font-size: 14px;
-    margin-top: 8px;
-    color: #cbd5e1;
-}
-
 
 /* CONTENEDOR DE FILTROS */
 .filtros {
@@ -180,7 +163,7 @@ h2{
 /* ETIQUETAS */
 .filtro label {
     font-family: Arial, sans-serif;
-    font-size: 14px;
+    font-size: 20px;
     font-weight: bold;
     color: #172b4d;
 }

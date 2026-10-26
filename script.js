@@ -2,7 +2,12 @@
 /* ==============================================
    DASHBOARD: USO DEL CELULAR EN LA NOCHE
    D3.js v7 + Observable Plot 0.6
-   Histograma + Diagrama de cajas + 4 tarjetas
+
+   Histograma + Diagrama de cajas
+   4 tarjetas interactivas + Post-it
+
+   CAMBIO:
+   Resaltar únicamente la caja de 6 a 7 horas
 ============================================== */
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -11,13 +16,19 @@ document.addEventListener("DOMContentLoaded", function () {
     // 1. CONFIGURACIÓN
     // ==========================================
 
-    const archivoCSV = "bedtime_screentime_sleep_bueno.csv";
+    const archivoCSV =
+        "bedtime_screentime_sleep_bueno.csv";
 
     const ROJO = "#8a2323";
     const GRIS = "#999999";
     const AMARILLO = "#FFF3A3";
     const DORADO = "#FFD700";
     const OSCURO = "#312419";
+
+    const CAFE_CAJA = "#b96756";
+    const DORADO_CAJA = "#664e0c";
+
+    const GRUPO_DESTACADO = "6 a 7";
 
     const ordenGrupos = [
         "Menos de 5",
@@ -42,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ==========================================
-    // 2. CARGAR LOS DATOS
+    // 2. CARGAR DATOS
     // ==========================================
 
     d3.csv(archivoCSV, d3.autoType)
@@ -184,8 +195,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
             }
 
-            // Al abrir el dashboard:
-            // las cuatro tarjetas muestran cero.
             reiniciarTarjetas();
 
             // ==================================
@@ -238,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (notaCaja) {
 
                     notaCaja.textContent =
-                        "📌 Selecciona un punto amarillo del diagrama de cajas.";
+                        "📌 La caja dorada representa a las personas que duermen de 6 a 7 horas. Selecciona un punto amarillo para explorar los datos.";
                 }
             }
 
@@ -406,9 +415,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 .map(grupo => {
 
-                    const registros = grupos.get(
-                        grupo
-                    );
+                    const registros = grupos.get(grupo);
 
                     const fatigas = registros
                         .map(d => d.fatiga)
@@ -437,7 +444,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
 
             // ==================================
-            // 9. DIBUJAR DIAGRAMA DE CAJAS
+            // 9. SEPARAR GRUPOS PARA COLOREAR
+            // ==================================
+
+            // Todos los grupos excepto 6 a 7 horas
+
+            const datosCajasNormales =
+                datosCajas.filter(
+                    d => d.grupo !== GRUPO_DESTACADO
+                );
+
+            // Solo el grupo de 6 a 7 horas
+
+            const datosCajasDestacadas =
+                datosCajas.filter(
+                    d => d.grupo === GRUPO_DESTACADO
+                );
+
+            // ==================================
+            // 10. DIBUJAR DIAGRAMA DE CAJAS
             // ==================================
 
             const cajas = Plot.plot({
@@ -474,14 +499,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 marks: [
 
-                    Plot.boxY(datosCajas, {
+                    // ==========================
+                    // CAJAS NORMALES: COLOR CAFÉ
+                    // ==========================
+
+                    Plot.boxY(datosCajasNormales, {
 
                         x: "grupo",
                         y: "fatiga",
 
-                        fill: "#8a4c40",
+                        fill: CAFE_CAJA,
                         stroke: OSCURO
                     }),
+
+                    // ==========================
+                    // CAJA DESTACADA: 6 A 7 HORAS
+                    // ==========================
+
+                    Plot.boxY(datosCajasDestacadas, {
+
+                        x: "grupo",
+                        y: "fatiga",
+
+                        fill: DORADO_CAJA,
+                        stroke: OSCURO,
+                        strokeWidth: 2
+                    }),
+
+                    // ==========================
+                    // MEDIANAS
+                    // ==========================
 
                     Plot.text(estadisticas, {
 
@@ -499,6 +546,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         fontWeight: "bold"
                     }),
 
+                    // ==========================
+                    // PUNTOS AMARILLOS INTERACTIVOS
+                    // ==========================
+
                     Plot.dot(estadisticas, {
 
                         x: "grupo",
@@ -512,7 +563,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         tip: true,
 
                         channels: {
-
                             "Registros": "cantidad"
                         }
                     })
@@ -523,11 +573,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             notaCaja = crearPostIt(
                 contenedorCajas,
-                "📌 Selecciona un punto amarillo del diagrama de cajas."
+                "📌 La caja dorada representa a las personas que duermen de 6 a 7 horas. Selecciona un punto amarillo para explorar los datos."
             );
 
             // ==================================
-            // 10. ELEMENTOS INTERACTIVOS
+            // 11. ELEMENTOS INTERACTIVOS
             // ==================================
 
             rectangulos = Array.from(
@@ -543,7 +593,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             // ==================================
-            // 11. RESTAURAR RESALTADOS
+            // 12. RESTAURAR RESALTADOS
             // ==================================
 
             function restaurarBarras() {
@@ -579,7 +629,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // ==================================
-            // 12. RELACIONAR LAS DOS GRÁFICAS
+            // 13. RELACIONAR LAS DOS GRÁFICAS
             // ==================================
 
             function relacionarGraficas() {
@@ -591,9 +641,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     return;
                 }
 
-                // ------------------------------
+                // ==============================
                 // A. SELECCIÓN DEL HISTOGRAMA
-                // ------------------------------
+                // ==============================
 
                 if (
                     seleccionActual.tipo ===
@@ -607,7 +657,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     if (!barra) return;
 
-                    // Resaltar barra seleccionada
                     const rectangulo =
                         rectangulos[indice];
 
@@ -624,7 +673,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         );
                     }
 
-                    // Encontrar grupo de cajas
                     const grupoRelacionado =
                         obtenerGrupo(barra.centro);
 
@@ -635,7 +683,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                 grupoRelacionado
                         );
 
-                    // Resaltar punto amarillo
                     if (
                         indiceGrupo !== -1 &&
                         puntos[indiceGrupo]
@@ -655,9 +702,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 }
 
-                // ------------------------------
+                // ==============================
                 // B. SELECCIÓN DE LAS CAJAS
-                // ------------------------------
+                // ==============================
 
                 if (
                     seleccionActual.tipo === "caja"
@@ -666,7 +713,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     const grupoSeleccionado =
                         seleccionActual.grupo;
 
-                    // Resaltar punto amarillo
                     const indiceGrupo =
                         estadisticas.findIndex(
                             d =>
@@ -692,7 +738,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             );
                     }
 
-                    // Resaltar barras relacionadas
                     barras.forEach((barra, i) => {
 
                         const grupoBarra =
@@ -726,7 +771,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // ==================================
-            // 13. SELECCIONAR O QUITAR FILTRO
+            // 14. SELECCIONAR O QUITAR FILTRO
             // ==================================
 
             function aplicarSeleccion(
@@ -739,8 +784,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     seleccionActual.clave ===
                     nuevaSeleccion.clave;
 
-                // Si se hace clic otra vez:
-                // quitar la selección.
                 if (mismaSeleccion) {
 
                     seleccionActual = null;
@@ -753,8 +796,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     return false;
                 }
 
-                seleccionActual =
-                    nuevaSeleccion;
+                seleccionActual = nuevaSeleccion;
 
                 const filtrados = datos.filter(
                     predicado
@@ -768,7 +810,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
             // ==================================
-            // 14. CLIC EN BARRAS DEL HISTOGRAMA
+            // 15. CLIC EN BARRAS DEL HISTOGRAMA
             // ==================================
 
             rectangulos.forEach(
@@ -837,7 +879,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <div>
                                     Horas de sueño:
                                     <strong>
-                                    ${barra.inicio} a ${barra.fin}
+                                        ${barra.inicio} a ${barra.fin}
                                     </strong>
                                 </div>
 
@@ -864,7 +906,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             // ==================================
-            // 15. CLIC EN PUNTOS DE LAS CAJAS
+            // 16. CLIC EN PUNTOS DE LAS CAJAS
             // ==================================
 
             puntos.forEach((punto, indice) => {
@@ -950,7 +992,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             // ==================================
-            // 16. BOTÓN QUITAR SELECCIÓN
+            // 17. BOTÓN QUITAR SELECCIÓN
             // ==================================
 
             const boton = document.createElement(
@@ -987,13 +1029,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     seleccionActual = null;
 
-                    // Tarjetas a cero
                     reiniciarTarjetas();
 
-                    // Quitar resaltados
                     relacionarGraficas();
 
-                    // Restaurar post-it
                     reiniciarNotas();
                 }
             );
@@ -1003,7 +1042,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             // ==================================
-            // 17. ESTADO INICIAL
+            // 18. ESTADO INICIAL
             // ==================================
 
             reiniciarTarjetas();
@@ -1030,3 +1069,4 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 });
+    
